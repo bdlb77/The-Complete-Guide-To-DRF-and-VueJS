@@ -1,14 +1,20 @@
-from rest_framework import generics, mixins, viewsets
+from rest_framework import generics
 from rest_framework.filters import SearchFilter
+from rest_framework import viewsets, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
-from profiles.api.permissions import IsOwnerOrReadOnly, IsOwnProfileOrReadOnly
-from profiles.api.serializers import (ProfileAvatarSerializer,
-                                      ProfileSerializer,
-                                      ProfileStatusSerializer)
 from profiles.models import Profile, ProfileStatus
+from profiles.api.serializers import (ProfileSerializer,
+                                      ProfileStatusSerializer,
+                                      ProfileAvatarSerializer)
+from profiles.api.permissions import IsOwnProfileOrReadOnly, IsOwnerOrReadOnly
 
+
+# class ProfileList(generics.ListAPIView):
+#     queryset = Profile.objects.all()
+#     serializer_class = ProfileSerializer
+#     permission_classes = [IsAuthenticated]
 
 class AvatarUpdateView(generics.UpdateAPIView):
     serializer_class = ProfileAvatarSerializer
@@ -41,7 +47,7 @@ class ProfileStatusViewSet(ModelViewSet):
             queryset = queryset.filter(user_profile__user__username=username)
         return queryset
 
-
+        
     def perform_create(self, serializer):
         user_profile = self.request.user.profile
         serializer.save(user_profile=user_profile)
