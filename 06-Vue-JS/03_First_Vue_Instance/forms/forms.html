@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>Forms</title>
+  <style>
+
+  </style>
+</head>
+<body>
+  <div id="app">
+    <p class="mt-2" v-if="errors" style='text-align: center'> {{errors }}</p>
+    <div class="row justify-content-center mt-3">
+      <div class="col-10">
+      <form @submit.prevent="onSubmit">
+        <div class="form-control">
+          <label for="commentText">Publish a Comment!</label>
+          <textarea 
+            id="commentText"
+            class="form-control"
+            cols="80"
+            rows="5"
+            v-model="comment"
+          ></textarea>
+        </div>
+        <button class="btn btn-sm btn-primary"
+                type="submit">Publish</button>
+      </form>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+      <div class="col-10">
+
+        <div class="card" v-for="comment in comments">
+          <div class="card-body">
+            {{ comment }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="forms.js"></script>
+</body>
+</html>
